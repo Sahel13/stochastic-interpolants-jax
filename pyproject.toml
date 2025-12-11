@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "interpolants"
+version = "0.0.1"
+dependencies = [
+  "jax",
+]
+
+[project.optional-dependencies]
+tests = [
+    "pre-commit",
+]
