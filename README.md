@@ -1,1 +1,1 @@
-# interpolants
+# Stochastic interpolants in JAX
