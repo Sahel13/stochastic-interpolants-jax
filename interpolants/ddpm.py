@@ -7,7 +7,7 @@ from flax import nnx
 from jax import Array, random
 
 # Create the Swill roll data set
-num_data_points = 1000
+num_data_points = 1024
 rng = np.random.default_rng()
 
 angles = rng.uniform(size=num_data_points) * 4 * np.pi
@@ -18,7 +18,7 @@ ys = angles * np.sin(angles) + noises[1]
 
 dataset = np.stack([xs, ys], axis=0).T
 index_sampler = grain.samplers.IndexSampler(
-    num_records=len(dataset), shuffle=True, num_epochs=None, seed=42
+    num_records=len(dataset), shuffle=True, num_epochs=1, seed=42
 )
 
 
@@ -102,7 +102,7 @@ def train_step(
 
 key = random.key(0)
 num_epochs = 100
-batch_size = 50
+batch_size = 128
 
 data_loader = grain.DataLoader(
     data_source=dataset,  # type: ignore
@@ -125,3 +125,4 @@ for epoch in range(num_epochs):
 
     for metric, value in metrics.compute().items():
         print(f"{metric}: {value:0.4f}")
+    metrics.reset()
